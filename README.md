@@ -30,9 +30,4 @@ This project analyzes satellite data, detects forest loss, and visualizes defore
 
 ---
 
-## ⚙️ Installation & Setup
 
-### 1️⃣ Clone Repository
-```bash
-git clone https://github.com/YourUsername/deforestation-monitoring.git
-cd deforestation-monitoring/backend
