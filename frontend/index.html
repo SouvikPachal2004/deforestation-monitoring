@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForestGuard - Automated Deforestation Monitoring</title>
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Advanced satellite monitoring system for detecting and measuring deforestation in real-time">
+    <meta name="keywords" content="deforestation, satellite imaging, forest monitoring, environmental conservation">
+    <meta name="author" content="ForestGuard Team">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/icons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    
+    <!-- External CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Internal CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- External JavaScript Libraries -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Internal JavaScript -->
+    <script src="js/main.js" defer></script>
+    <script src="js/map.js" defer></script>
+    <script src="js/charts.js" defer></script>
+    <script src="js/animations.js" defer></script>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader-container">
+            <div class="loader">
+                <div class="tree-animation">
+                    <i class="fas fa-tree"></i>
+                    <i class="fas fa-tree"></i>
+                    <i class="fas fa-tree"></i>
+                </div>
+                <p>Loading Forest Data...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <div class="navbar-brand">
+                <a href="#home" class="brand-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">ForestGuard</span>
+                        <span class="logo-tagline">Monitoring Earth's Forests</span>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="navbar-menu">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
+                
+                <ul class="nav-list" id="navList">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#dashboard" class="nav-link">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#analysis" class="nav-link">Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#reports" class="nav-link">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero section" id="home">
+            <div class="hero-container container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            Monitor Deforestation
+                        </h1>
+                        <p class="hero-subtitle">
+                            Advanced satellite imagery analysis to detect and measure forest cover changes across India
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="#dashboard" class="btn btn-primary">
+                                <i class="fas fa-chart-line"></i> View Dashboard
+                            </a>
+                            <a href="#analysis" class="btn btn-outline">
+                                <i class="fas fa-satellite"></i> Start Analysis
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section class="dashboard section" id="dashboard">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Deforestation Dashboard</h2>
+                    <p class="section-subtitle">Real-time monitoring of forest cover changes</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <!-- Statistics Cards -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-value">2.4M</h3>
+                                <p class="stat-label">Hectares Monitored</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card stat-danger">
+                            <div class="stat-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-value">12,450</h3>
+                                <p class="stat-label">Hectares Lost (This Year)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card stat-warning">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-value">+4.2%</h3>
+                                <p class="stat-label">Increase From Last Year</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card stat-success">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 class="stat-value">87</h3>
+                                <p class="stat-label">Alerts Resolved</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Visualization -->
+                    <div class="map-section">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Deforestation Hotspots</h3>
+                                <div class="map-controls">
+                                    <button class="map-btn active" data-view="current">Current</button>
+                                    <button class="map-btn" data-view="historical">Historical</button>
+                                    <button class="map-btn" data-view="comparison">Comparison</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="map" class="map-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts -->
+                    <div class="charts-row">
+                        <div class="chart-card">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Deforestation Trend</h3>
+                                    <div class="chart-controls">
+                                        <select class="chart-select" id="trendPeriod">
+                                            <option value="monthly">Monthly</option>
+                                            <option value="quarterly">Quarterly</option>
+                                            <option value="yearly">Yearly</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="deforestationTrendChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Forest Cover by Region</h3>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="forestCoverChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        <section class="analysis section" id="analysis">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Satellite Image Analysis</h2>
+                    <p class="section-subtitle">Upload and analyze satellite images to detect deforestation</p>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="upload-panel">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Upload Satellite Images</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="upload-area" id="uploadArea">
+                                    <div class="upload-content">
+                                        <div class="upload-icon">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                        </div>
+                                        <h4>Drag & Drop Images Here</h4>
+                                        <p>or click to browse files</p>
+                                        <button class="btn btn-primary" id="browseBtn">Browse Files</button>
+                                        <input type="file" id="fileInput" multiple accept="image/*" hidden>
+                                    </div>
+                                </div>
+                                
+                                <div class="upload-options">
+                                    <div class="form-group">
+                                        <label for="regionSelect">Select Region</label>
+                                        <select id="regionSelect" class="form-control">
+                                            <option value="">-- Select Region --</option>
+                                            <option value="western_ghats">Western Ghats</option>
+                                            <option value="northeast">Northeast India</option>
+                                            <option value="central_india">Central India</option>
+                                            <option value="eastern_ghats">Eastern Ghats</option>
+                                            <option value="himalayas">Himalayan Region</option>
+                                            <option value="custom">Custom Region</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="dateRange">Date Range</label>
+                                        <div class="date-range">
+                                            <input type="date" id="startDate" class="form-control">
+                                            <span class="date-separator">to</span>
+                                            <input type="date" id="endDate" class="form-control">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="analysisType">Analysis Type</label>
+                                        <select id="analysisType" class="form-control">
+                                            <option value="deforestation">Deforestation Detection</option>
+                                            <option value="regrowth">Forest Regrowth</option>
+                                            <option value="health">Forest Health</option>
+                                            <option value="fire">Fire Damage</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button class="btn btn-primary btn-block" id="analyzeBtn">
+                                        <i class="fas fa-search"></i> Analyze Images
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-panel">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Analysis Results</h3>
+                                <div class="result-actions">
+                                    <button class="btn btn-sm" id="exportBtn">
+                                        <i class="fas fa-download"></i> Export
+                                    </button>
+                                    <button class="btn btn-sm" id="shareBtn">
+                                        <i class="fas fa-share-alt"></i> Share
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="tabs">
+                                    <div class="tab-header">
+                                        <button class="tab-btn active" data-tab="overview">Overview</button>
+                                        <button class="tab-btn" data-tab="comparison">Comparison</button>
+                                        <button class="tab-btn" data-tab="details">Details</button>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="overview">
+                                            <div class="result-summary">
+                                                <div class="summary-item">
+                                                    <h4>Total Area Analyzed</h4>
+                                                    <p class="summary-value">45,230 ha</p>
+                                                </div>
+                                                <div class="summary-item">
+                                                    <h4>Forest Cover Loss</h4>
+                                                    <p class="summary-value danger">1,240 ha (2.7%)</p>
+                                                </div>
+                                                <div class="summary-item">
+                                                    <h4>Confidence Level</h4>
+                                                    <p class="summary-value">94.2%</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="result-visualization">
+                                                <div class="image-comparison">
+                                                    <div class="comparison-item">
+                                                        <div class="comparison-image">
+                                                            <img src="https://via.placeholder.com/400x300?text=Before" alt="Before image">
+                                                            <div class="image-label">Before</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comparison-item">
+                                                        <div class="comparison-image">
+                                                            <img src="https://via.placeholder.com/400x300?text=After" alt="After image">
+                                                            <div class="image-label">After</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="comparison">
+                                            <div class="comparison-chart">
+                                                <canvas id="comparisonChart"></canvas>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="details">
+                                            <div class="details-table-container">
+                                                <table class="details-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Region</th>
+                                                            <th>Area (ha)</th>
+                                                            <th>Change (%)</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Northern Sector</td>
+                                                            <td>15,230</td>
+                                                            <td>+1.2</td>
+                                                            <td><span class="status-badge success">Stable</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Eastern Sector</td>
+                                                            <td>12,450</td>
+                                                            <td>-5.7</td>
+                                                            <td><span class="status-badge danger">Critical</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Western Sector</td>
+                                                            <td>10,890</td>
+                                                            <td>-2.1</td>
+                                                            <td><span class="status-badge warning">At Risk</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Southern Sector</td>
+                                                            <td>6,660</td>
+                                                            <td>+0.8</td>
+                                                            <td><span class="status-badge success">Stable</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports Section -->
+        <section class="reports section" id="reports">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Deforestation Reports</h2>
+                    <p class="section-subtitle">Comprehensive reports and insights on forest cover changes</p>
+                </div>
+                
+                <div class="reports-grid">
+                    <div class="filters-panel">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Filter Reports</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="filter-form">
+                                    <div class="form-group">
+                                        <label for="reportRegion">Region</label>
+                                        <select id="reportRegion" class="form-control">
+                                            <option value="all">All Regions</option>
+                                            <option value="western_ghats">Western Ghats</option>
+                                            <option value="northeast">Northeast India</option>
+                                            <option value="central_india">Central India</option>
+                                            <option value="eastern_ghats">Eastern Ghats</option>
+                                            <option value="himalayas">Himalayan Region</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="reportTimeframe">Timeframe</label>
+                                        <select id="reportTimeframe" class="form-control">
+                                            <option value="monthly">Monthly</option>
+                                            <option value="quarterly">Quarterly</option>
+                                            <option value="yearly">Yearly</option>
+                                            <option value="custom">Custom Range</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="reportType">Report Type</label>
+                                        <select id="reportType" class="form-control">
+                                            <option value="summary">Summary</option>
+                                            <option value="detailed">Detailed Analysis</option>
+                                            <option value="prediction">Prediction Model</option>
+                                            <option value="impact">Impact Assessment</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button class="btn btn-primary btn-block" id="generateReportBtn">
+                                        <i class="fas fa-file-alt"></i> Generate Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reports-list">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Recent Reports</h3>
+                                <div class="view-toggle">
+                                    <button class="view-btn active" id="gridView">
+                                        <i class="fas fa-th"></i>
+                                    </button>
+                                    <button class="view-btn" id="listView">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="reports-grid-view">
+                                    <div class="report-card">
+                                        <div class="report-icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </div>
+                                        <div class="report-info">
+                                            <h4 class="report-title">Western Ghats Deforestation Report - Q2 2023</h4>
+                                            <p class="report-meta">June 15, 2023 • 12.4 MB</p>
+                                            <div class="report-actions">
+                                                <button class="btn btn-sm">View</button>
+                                                <button class="btn btn-sm">Download</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="report-card">
+                                        <div class="report-icon">
+                                            <i class="fas fa-file-excel"></i>
+                                        </div>
+                                        <div class="report-info">
+                                            <h4 class="report-title">Northeast Forest Cover Analysis</h4>
+                                            <p class="report-meta">May 28, 2023 • 8.7 MB</p>
+                                            <div class="report-actions">
+                                                <button class="btn btn-sm">View</button>
+                                                <button class="btn btn-sm">Download</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="report-card">
+                                        <div class="report-icon">
+                                            <i class="fas fa-file-powerpoint"></i>
+                                        </div>
+                                        <div class="report-info">
+                                            <h4 class="report-title">Annual Forest Health Assessment</h4>
+                                            <p class="report-meta">April 12, 2023 • 24.1 MB</p>
+                                            <div class="report-actions">
+                                                <button class="btn btn-sm">View</button>
+                                                <button class="btn btn-sm">Download</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="report-card">
+                                        <div class="report-icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </div>
+                                        <div class="report-info">
+                                            <h4 class="report-title">Eastern Ghats Deforestation Trends</h4>
+                                            <p class="report-meta">March 5, 2023 • 15.3 MB</p>
+                                            <div class="report-actions">
+                                                <button class="btn btn-sm">View</button>
+                                                <button class="btn btn-sm">Download</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="pagination">
+                                    <button class="page-btn" id="prevPage">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <button class="page-btn active">1</button>
+                                    <button class="page-btn">2</button>
+                                    <button class="page-btn">3</button>
+                                    <button class="page-btn dots">...</button>
+                                    <button class="page-btn">8</button>
+                                    <button class="page-btn" id="nextPage">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about section" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">About ForestGuard</h2>
+                    <p class="section-subtitle">Our mission to protect the world's forests through technology</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-text">
+                        <div class="about-intro">
+                            <h3>Monitoring Forests for a Sustainable Future</h3>
+                            <p>ForestGuard is an advanced deforestation monitoring system that leverages satellite imagery, artificial intelligence, and machine learning to detect and measure forest cover changes in near real-time.</p>
+                        </div>
+                        
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-satellite"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Satellite Imagery Analysis</h4>
+                                    <p>High-resolution satellite imagery processing with advanced computer vision algorithms.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>AI-Powered Detection</h4>
+                                    <p>Machine learning models trained to identify deforestation patterns with high accuracy.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Time-Series Analysis</h4>
+                                    <p>Track forest cover changes over time to identify trends and predict future deforestation.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Real-Time Alerts</h4>
+                                    <p>Immediate notifications when deforestation activities are detected in monitored areas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-image">
+                        <div class="image-container">
+                            <img src="https://via.placeholder.com/600x400?text=Forest+Monitoring+Technology" alt="Forest monitoring technology">
+                            <div class="image-overlay"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-section">
+                    <h3>Our Team</h3>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="https://via.placeholder.com/200x200?text=Team+Member" alt="Dr. Priya Sharma">
+                            </div>
+                            <h4>Dr. Priya Sharma</h4>
+                            <p class="member-role">Lead Scientist</p>
+                            <div class="member-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="https://via.placeholder.com/200x200?text=Team+Member" alt="Rajiv Mehta">
+                            </div>
+                            <h4>Rajiv Mehta</h4>
+                            <p class="member-role">AI Engineer</p>
+                            <div class="member-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="https://via.placeholder.com/200x200?text=Team+Member" alt="Ananya Patel">
+                            </div>
+                            <h4>Ananya Patel</h4>
+                            <p class="member-role">Data Analyst</p>
+                            <div class="member-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="https://via.placeholder.com/200x200?text=Team+Member" alt="Vikram Singh">
+                            </div>
+                            <h4>Vikram Singh</h4>
+                            <p class="member-role">GIS Specialist</p>
+                            <div class="member-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact section" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Contact Us</h2>
+                    <p class="section-subtitle">Get in touch with our team for more information</p>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-form-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Send us a Message</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="contactForm">
+                                    <div class="form-group">
+                                        <label for="name">Your Name</label>
+                                        <input type="text" id="name" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input type="email" id="email" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="subject">Subject</label>
+                                        <select id="subject" class="form-control" required>
+                                            <option value="">-- Select Subject --</option>
+                                            <option value="general">General Inquiry</option>
+                                            <option value="partnership">Partnership Opportunity</option>
+                                            <option value="technical">Technical Support</option>
+                                            <option value="data">Data Request</option>
+                                            <option value="feedback">Feedback</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="message">Message</label>
+                                        <textarea id="message" class="form-control" rows="5" required></textarea>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        <i class="fas fa-paper-plane"></i> Send Message
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-container">
+                        <div class="info-card">
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="info-text">
+                                    <h4>Our Location</h4>
+                                    <p>Environmental Research Center<br>Bangalore, Karnataka 560001<br>India</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="info-text">
+                                    <h4>Phone Number</h4>
+                                    <p>+91 80 1234 5678<br>Mon-Fri 9am-6pm IST</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="info-text">
+                                    <h4>Email Address</h4>
+                                    <p>info@forestguard.in<br>support@forestguard.in</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="fas fa-share-alt"></i>
+                                </div>
+                                <div class="info-text">
+                                    <h4>Follow Us</h4>
+                                    <div class="social-links">
+                                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column footer-about">
+                        <div class="footer-logo">
+                            <a href="#home">
+                                <i class="fas fa-tree"></i>
+                                <span>ForestGuard</span>
+                            </a>
+                        </div>
+                        <p class="footer-description">
+                            Advanced satellite monitoring system dedicated to protecting our forests through technology and innovation.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-column footer-links">
+                        <h3 class="footer-heading">Quick Links</h3>
+                        <ul class="footer-list">
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#dashboard">Dashboard</a></li>
+                            <li><a href="#analysis">Analysis</a></li>
+                            <li><a href="#reports">Reports</a></li>
+                            <li><a href="#about">About Us</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column footer-links">
+                        <h3 class="footer-heading">Resources</h3>
+                        <ul class="footer-list">
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">API Reference</a></li>
+                            <li><a href="#">Research Papers</a></li>
+                            <li><a href="#">Case Studies</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column footer-links">
+                        <h3 class="footer-heading">Legal</h3>
+                        <ul class="footer-list">
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                            <li><a href="#">Sitemap</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column footer-newsletter">
+                        <h3 class="footer-heading">Stay Updated</h3>
+                        <p class="newsletter-description">
+                            Subscribe to our newsletter for the latest updates on forest conservation.
+                        </p>
+                        <form class="newsletter-form">
+                            <div class="form-group">
+                                <input type="email" placeholder="Your email address" required>
+                                <button type="submit" class="btn-subscribe">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="contact-info">
+                            <p><i class="fas fa-envelope"></i> info@forestguard.in</p>
+                            <p><i class="fas fa-phone"></i> +91 80 1234 5678</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2023 ForestGuard. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Sitemap</a>
+                    </div>
+                </div>
+                <p class="footer-attribution">
+                    Designed with <i class="fas fa-heart"></i> for environmental conservation
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+</html>
